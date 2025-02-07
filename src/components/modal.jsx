@@ -22,7 +22,7 @@ function Modal( {closeModal, selectedSlipper} ) {
 
     const handleSubmit = async () => {
         if (!selectedSize) {
-            setAlert({ type: "warning", message: "Будь ласка виберіть розмір!", visible: true });
+            setAlert({ type: "warning", message: "Будь ласка оберіть розмір!", visible: true });
             console.log("Alert Triggered: Please select a size!");
         } else if (nameInp.trim() === "" || numberInp.trim() === "") {
             setAlert({ type: "warning", message: "Будь ласка заповніть обидва поля!", visible: true });
