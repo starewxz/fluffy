@@ -54,7 +54,7 @@ input[type="tel"] {
     max-width: 15rem;
     border: 2px solid #ccc;
     border-radius: 8px;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     transition: all 0.3s ease;
     box-sizing: border-box;
     color: #333;
@@ -150,8 +150,8 @@ input[type="tel"]:focus {
 /* 📱 Media Query for Mobile Devices */
 @media (max-width: 600px) {
     .modal-content {
-        width: 90%;
-        height: 90vh;
+        width: 85%;
+        height: 80vh;
     }
 }
 
