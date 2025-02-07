@@ -1,0 +1,159 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-img {
+    width: 100%;
+    height: 16em;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.top-inp {
+    margin-top: 12px;
+    padding: 8px;
+    font-size: 13px;
+    width: 100%;
+    max-width: 15rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.top-inp:focus {
+    outline: none;
+    border-color: #a29784; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(162, 151, 132, 1); /* Subtle shadow on focus */
+}
+p {
+    margin-bottom: 3px;
+    font-family: "Nunito", serif;
+    font-size: 25px;
+    font-weight: 700;
+    font-style: normal;
+    color: #c1b6a2;
+    background-color: #faf8f4;
+}
+
+input[type="tel"] {
+    padding: 8px;
+    font-size: 13px;
+    width: 100%;
+    max-width: 15rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 7px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+input[type="tel"]:focus {
+    outline: none;
+    border-color: #a29784; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(162, 151, 132, 1); /* Subtle shadow on focus */
+}
+
+.modal-content {
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+    height: 80vh;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.size-btn {
+    margin: 5px;
+    padding: 7px 8px;
+    border: none;
+    background: #a29784;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 12%;
+}
+
+.size-btn:hover {
+    background: #908675;
+}
+
+.size-btn.selected {
+    background-color: #4CAF50; /* Green to indicate selection */
+    border: 1.5px solid #3e8e41;
+}
+
+.size-btn:active {
+    background: #3e8e41;
+}
+
+.submit-btn {
+    padding: 10px 10px;
+    background-color: #8b806d;
+    color: white;
+    font-size: 16px;
+    font-family: "Nunito", serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+}
+
+.submit-btn:active {
+    background-color: #3e8e41; /* Even darker green when clicked */
+}
+
+
+/* 📱 Media Query for Mobile Devices */
+@media (min-width: 1025px) {
+    .modal-content {
+        width: 55%;
+    }
+}
+/* Media Query for Tablet Devices */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .modal-content {
+        width: 55%;
+    }
+}
+/* 📱 Media Query for Mobile Devices */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+        height: 90vh;
+    }
+}
+
+
+
