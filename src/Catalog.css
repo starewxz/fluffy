@@ -1,0 +1,244 @@
+/* Main grid container */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: #f0eae0;
+    border: 2px solid #c1b6a2;
+    border-radius: 10px;
+    margin: 15px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
+    background-image: url("https://www.transparenttextures.com/patterns/corrugation.png")
+}
+
+/* Grid item styles */
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f0eae0;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(50px); /* Start from bottom */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition */
+    background-image: url("https://www.transparenttextures.com/patterns/corrugation.png")
+}
+
+/* Image inside grid item */
+.grid-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    /*box-shadow: 0 0 10px rgba(139, 128, 109, 0.6);*/
+    border: 2px solid #c1b6a2;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+/* When the image is in view, this class will be added */
+.grid-item.visible {
+    opacity: 1;
+    transform: translateY(0); /* Move to original position */
+}
+
+.selector {
+    background-color: #f6f1e6; /* Light background */
+    color: #5a5a5a; /* Darker text for contrast */
+    border: 2px solid #c1b6a2; /* Border matching the secondary color */
+    padding: 3px 5px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 35%;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selector:hover {
+    border-color: #a79b89;
+}
+.selector:focus {
+    border-color: #8d8270;
+    box-shadow: 0 0 5px rgba(193, 182, 162, 0.5);
+}
+
+.cost-p {
+    margin-top: 10px;
+    align-self: flex-start;
+    font-family: "Nunito", serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #a08c72;
+    margin-bottom: 0;
+    margin-right: 250px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+
+.cost-p::before {
+    content: "₴";
+    font-size: 18px;
+    vertical-align: top;
+    margin-right: 2px;
+}
+
+@media (max-width: 600px) {
+    .cost-p {
+        margin-right: 75px;
+    }
+}
+
+/* Button inside grid item */
+.grid-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c1b6a2;
+    border: 2px solid #8b806d;
+    border-radius: 8px;
+    color: #faf8f4;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    height: 45px;
+    width: 90%;
+    max-width: 150px;
+    padding: 10px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 4px 4px 0 #a29784;
+    margin-bottom: 10px;
+    margin-top: 4px;
+}
+
+/* Hover effect for the button */
+.grid-btn:hover {
+    background-color: #8b806d;
+    color: #fff;
+    box-shadow: 2px 2px 0 #746a59;
+    transform: translate(2px, 2px);
+}
+
+/* Active effect for the button */
+.grid-btn:active {
+    background-color: #7e6f48;
+    box-shadow: none;
+    transform: translate(4px, 4px);
+}
+
+
+/* Catalog Button Container */
+.catalog-btn {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+    margin-bottom: 25px;
+    animation: fadeIn 1s ease-out;
+}
+
+.catalog-btn p img {
+    background-color: #f6f1e6;
+    color: #8b806d;
+    height: 4vh;
+    width: 5vh;
+    margin-top: 2vh;
+}
+
+/* Button Styling */
+.catalog-btn button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    width: 150px;  /* Ensure all buttons have the same width */
+    height: 100%;
+    background: linear-gradient(145deg, #e9e3d6, #f0e0c9);  /* Softer gradient background */
+    color: #5a5a5a;  /* Darker text for better contrast */
+    border: 2px solid #c1b6a2;  /* Lighter border to match the minimalist style */
+    border-radius: 25px;  /* Slightly softer, more subtle rounded corners */
+    font-family: "Nunito", serif;
+    font-size: 16px;
+    font-weight: 700;
+    font-style: normal;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  /* Softer shadow for a more minimalistic feel */
+    cursor: pointer;
+    outline: none;
+}
+
+/* Hover Effect for Buttons */
+/*.catalog-btn button:hover {
+    background-color: #e3d8b7;
+    color: #5a5a5a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.03);
+} */
+
+/* Active State for Buttons */
+/*.catalog-btn button:active {
+    background-color: #e0d4b6;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+} */
+.catalog-btn button.slippers-active,
+.catalog-btn button.socks-active {
+    background-color: #e3d8b7;  /* Softer color on hover */
+    color: #5a5a5a;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);  /* Light shadow on hover */
+    transform: scale(1.03);  /* Slightly enlarge on hover */
+}
+
+/* Keyframe for Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);  /* Start from below */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.slippers-png {
+    width: 40%;
+}
+.sock-png {
+    width: 40%;
+}
+
+
+/* 📱 Media Query for Mobile Devices */
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 images per row */
+    }
+}
+
+/* Media Query for Tablet Devices */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 images per row */
+    }
+}
+
+/* 🖥️ Media Query for Desktop */
+@media (min-width: 1025px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 images per row */
+    }
+}

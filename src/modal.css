@@ -4,12 +4,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(220, 220, 220, 0.15));
+    backdrop-filter: blur(12px) saturate(1.3) brightness(1.05);
+    -webkit-backdrop-filter: blur(12px) saturate(1.3) brightness(1.05);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    box-shadow: inset 0 0 80px rgba(255, 255, 255, 0.05);
+    animation: cloudFadeIn 0.5s ease forwards;
 }
+
+@keyframes cloudFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+        backdrop-filter: blur(0px) saturate(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+        backdrop-filter: blur(12px) saturate(1.3) brightness(1.05);
+    }
+}
+
+
+
+
+
 .modal-img {
     width: 100%;
     height: 16em;
@@ -37,14 +62,14 @@
     border-color: #a29784; /* Border color on focus */
     box-shadow: 0 0 5px rgba(162, 151, 132, 1); /* Subtle shadow on focus */
 }
-p {
+.m-p {
     margin-bottom: 3px;
     font-family: "Nunito", serif;
     font-size: 25px;
     font-weight: 700;
     font-style: normal;
     color: #c1b6a2;
-    background-color: #faf8f4;
+    background-color: white;
 }
 
 input[type="tel"] {
@@ -67,6 +92,109 @@ input[type="tel"]:focus {
     box-shadow: 0 0 5px rgba(162, 151, 132, 1); /* Subtle shadow on focus */
 }
 
+.city-p {
+    font-family: "Nunito", serif;
+    font-size: 10px;
+    font-weight: 700;
+    font-style: normal;
+    color: #a6a6a6;
+    margin-bottom: 5px;
+    margin-left: 30px;
+}
+
+.city-inp {
+    padding: 8px;
+    font-size: 13px;
+    width: 280px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: #333;
+    background-color: #f9f9f9;
+    margin-left: 30px;
+}
+.city-inp:focus {
+    outline: none;
+    border-color: #a29784; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(162, 151, 132, 1); /* Subtle shadow on focus */
+}
+
+.city-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Adjust space between input and select */
+    width: 100%;
+    position: relative;
+}
+.departament-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Adjust space between input and select */
+    width: 100%;
+    position: relative;
+}
+
+.city-suggestions {
+    position: absolute;
+    top: -200px; /* or a value that puts it above the input */
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: white;
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.city-suggestion-item {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.city-suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+.np {
+    padding: 8px;
+    font-size: 13px;
+    width: 280px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: #333;
+    background-color: #f9f9f9;
+    margin-left: 30px;
+    appearance: none; /* optional: removes native arrow in some browsers for custom arrow styling */
+}
+
+.np:focus {
+    outline: none;
+    border-color: #a29784;
+    box-shadow: 0 0 5px rgba(162, 151, 132, 1);
+}
+
+
+@media (max-width: 600px) {
+    .city-inp {
+        margin-left: 0;
+        width: 250px;
+    }
+    .np {
+        margin-left: 0;
+        width: 250px;
+    }
+}
+
 .modal-content {
     align-items: center;
     position: fixed;
@@ -76,6 +204,9 @@ input[type="tel"]:focus {
     border-radius: 10px;
     text-align: center;
     height: 80vh;
+    box-shadow: 0 10px 40px rgba(139, 128, 109, 0.35),
+    0 0 60px rgba(193, 182, 162, 0.25);
+
 }
 
 .close {
@@ -135,23 +266,25 @@ input[type="tel"]:focus {
 }
 
 
-/* 📱 Media Query for Mobile Devices */
+/* Media Query for comp Devices */
 @media (min-width: 1025px) {
     .modal-content {
         width: 55%;
+        height: 90vh;
     }
 }
 /* Media Query for Tablet Devices */
 @media (min-width: 601px) and (max-width: 1024px) {
     .modal-content {
         width: 55%;
+        height: 90vh;
     }
 }
 /* 📱 Media Query for Mobile Devices */
 @media (max-width: 600px) {
     .modal-content {
         width: 85%;
-        height: 80vh;
+        height: 85vh;
     }
 }
 
