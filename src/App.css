@@ -121,7 +121,7 @@
 }
 
 .header.scrolled {
-  background-color: rgba(246, 241, 230, 0.6); /* semi-transparent */
+  background-color: rgba(246, 241, 230, 0.5); /* semi-transparent */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* Safari */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
