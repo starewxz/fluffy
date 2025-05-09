@@ -4,13 +4,48 @@
   flex-direction: column; /* Stack header, content, and footer vertically */
   gap: 15px;
   background-color: #f6f1e6;
+  letter-spacing: 0.5px;
 }
 
 .carousel-inner img {
-  max-height: 65vh; /* Limit the height to 70% of the viewport */
-  object-fit: cover; /* Maintain aspect ratio and crop excess */
-  width: 100%; /* Ensure full width */
+  margin-top: 65px;
+  max-height: 65vh;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+
+  background-color: #f8f9fa; /* Very light gray behind in case of loading lag */
 }
+
+@media (min-width: 1025px) {
+  .carousel-inner img {
+    width: 100%;
+  }
+}
+.carousel::before,
+.carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 80px; /* Width of the blur area */
+  height: 100%;
+  z-index: 2;
+  pointer-events: none; /* So it doesn't block the arrows */
+}
+
+.carousel::before {
+  left: 0;
+  background: linear-gradient(to right, rgb(160, 140, 114, 0.5), transparent);
+}
+
+.carousel::after {
+  right: 0;
+  background: linear-gradient(to left, rgb(160, 140, 114, 0.5), transparent);
+}
+
+
+
 
 .order-h {
   font-family: "Nunito", serif;
@@ -21,14 +56,39 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5px;
-  margin-bottom: 0;
+  margin-top: 45px;
+  margin-bottom: 5vh;
   color: #c1b6a2;
+  text-shadow:
+          1px 1px 2px rgba(0, 0, 0, 0.6),
+          0 0 5px rgba(193, 182, 162, 0.4),
+          0 0 10px rgba(193, 182, 162, 0.2);
+  animation: subtleShine 3s ease-in-out infinite;
 }
+
+/* Smooth pulse effect for shine */
+@keyframes subtleShine {
+  0%, 100% {
+    text-shadow:
+            1px 1px 2px rgba(0, 0, 0, 0.6),
+            0 0 5px rgba(193, 182, 162, 0.4),
+            0 0 10px rgba(193, 182, 162, 0.2);
+  }
+  50% {
+    text-shadow:
+            1px 1px 2px rgba(0, 0, 0, 0.6),
+            0 0 7px rgba(193, 182, 162, 0.6),
+            0 0 14px rgba(193, 182, 162, 0.4);
+  }
+
+}
+
+
+
 
 .order-h h1 {
   font-size: 45px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 /* 📱 Media Query for Mobile Devices */
@@ -44,15 +104,31 @@
   /* Allow content to grow and push footer down */
 }
 
+
 .header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #faf8f4;
   width: 100%;
   height: 65px;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #faf8f4; /* solid at start */
+  transition: all 0.4s ease-in-out;
 }
+
+.header.scrolled {
+  background-color: rgba(246, 241, 230, 0.6); /* semi-transparent */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
 
 
 .h-p {
@@ -63,28 +139,187 @@
   font-weight: 900;
   font-style: normal;
   font-size: 35px;
+  text-align: center;
+  text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.4), 0 0 10px rgba(193, 182, 162, 0.3);
+}
+@media (max-width: 600px) {
+  .h-p {
+    font-size: 30px;
+  }
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  height: 45px;
+}
+
+@media (max-width: 600px) {
+  .cart {
+    height: 30px;
+  }
+  .cart {
+    margin-right: 15px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .cart {
+    margin-right: 20px;
+  }
+}
+@media (min-width: 1025px) {
+  .cart {
+    margin-right: 20px;
+  }
+}
+
+.menu {
+  height: 45px;
+  opacity: 0;
 }
 
 .footer {
   margin: 0;
   font-family: "Nunito", serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
   color: #c1b6a2;
-  background-color: #faf8f4;
+  background-color: rgba(246, 241, 230, 0.8);
   flex-shrink: 0;
-  box-shadow: 6px 2px 6px rgba(0, 0, 0, 0.1);
-  font-size: 80%;
+  box-shadow: 13px 4px 9px rgba(0, 0, 0, 0.3);
+  font-size: 120%;
 }
-
-
-
-.m-foot {
+.btn-div {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
+}
+
+.contact-footer {
+  position: relative;
+  top: 10px;
+  left: -750px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #c1b6a2;
+}
+.contact-footer:hover {
+  text-decoration: underline;
+}
+.contact-footer:active {
+  text-decoration: underline;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px 0 15px;
   width: 100%;
   height: 70%;
-  margin: 0;
+}
+.Inst-btn {
+  width: 50px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  /* overflow: hidden; */
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all .3s;
+  z-index: 2;
+}
+
+.svgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.8px;
+  border-radius: 10px;
+  transition: all .3s;
+  /*border: 1px solid rgba(156, 156, 156, 0.466);*/
+  z-index: 2;
+}
+.svgIcon {
+  width: 35px;
+  height: 35px;
+}
+
+.Bg {
+  position: absolute;
+  content: "";
+  width: 90%;
+  height: 100%;
+  background: linear-gradient(45deg, #e8dfcf 0%, #e0d7c7 50%, #d9d0c1 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+  z-index: 1;
+  border-radius: 9px;
+  pointer-events: none;
+  transition: all .3s;
+}
+
+.Inst-btn:active .Bg {
+  transform: rotate(35deg);
+  transform-origin: bottom;
+}
+
+.Inst-btn:active .svgContainer {
+  background-color: rgba(156, 156, 156, 0.466);
+}
+.TikTok-btn {
+  width: 50px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 2;
+}
+
+.Bg-tt {
+  position: absolute;
+  content: "";
+  width: 90%;
+  height: 100%;
+  background: linear-gradient(45deg, #e8dfcf 0%, #e0d7c7 50%, #d9d0c1 100%);
+  z-index: 1;
+  border-radius: 9px;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.TikTok-btn:active .Bg-tt {
+  transform: rotate(35deg);
+  transform-origin: bottom;
+}
+
+.TikTok-btn:active .svgContainer {
+  background-color: rgba(156, 156, 156, 0.466);
+}
+
+@media (max-width: 600px) {
+  .Inst-btn,
+  .TikTok-btn {
+    width: 40px;
+    height: 35px;
+    margin-bottom: 15px;
+  }
+  .svgIcon {
+    width: 28px;
+    height: 28px;
+  }
 }

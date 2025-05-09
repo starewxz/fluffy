@@ -5,22 +5,22 @@ function Carousel() {
         <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <img src="/Img/dog-img.JPG" className="d-block w-100" alt="Dog Slippers"/>
+                    <img src={`${import.meta.env.BASE_URL}img/dog-img.JPG`} className="d-block w-100" alt="Dog Slippers"/>
                 </div>
                 <div className="carousel-item">
-                    <img src="/Img/unicorn-img.JPG" className="d-block w-100" alt="Unicorn Slippers"/>
+                    <img src={`${import.meta.env.BASE_URL}img/unicorn-img.JPG`} className="d-block w-100" alt="Unicorn Slippers"/>
                 </div>
                 <div className="carousel-item">
-                    <img src="/Img/cow-img.JPG" className="d-block w-100" alt="Cow Slippers"/>
+                    <img src={`${import.meta.env.BASE_URL}img/cow-img.JPG`} className="d-block w-100" alt="Cow Slippers"/>
                 </div>
                 <div className="carousel-item">
-                    <img src="/Img/giraffe-img.JPG" className="d-block w-100" alt="Giraffe Slippers"/>
+                    <img src={`${import.meta.env.BASE_URL}img/giraffe-img.JPG`} className="d-block w-100" alt="Giraffe Slippers"/>
                 </div>
                 <div className="carousel-item">
-                    <img src="/Img/goat-img.JPG" className="d-block w-100" alt="Goat Slippers"/>
+                    <img src={`${import.meta.env.BASE_URL}img/goat-img.JPG`} className="d-block w-100" alt="Goat Slippers"/>
                 </div>
                 <div className="carousel-item">
-                    <img src="/Img/bear-img.JPG" className="d-block w-100" alt="Bear Slippers"/>
+                    <img src={`${import.meta.env.BASE_URL}img/bear-img.JPG`} className="d-block w-100" alt="Bear Slippers"/>
                 </div>
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -36,5 +36,7 @@ function Carousel() {
         </div>
     )
 }
+
+
 
 export default Carousel;
