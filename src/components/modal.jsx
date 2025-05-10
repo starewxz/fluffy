@@ -232,7 +232,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
 
                     </div>
 
-                    <p className="m-p">Вартість: {selectedSlipper.cost * selectorValue}</p>
+                    <p className="m-p">Вартість: {selectedSlipper.cost * selectorValue}грн</p>
 
                     <button className="submit-btn" type="button" onClick={handleSubmit}>Підтвердити</button>
 
