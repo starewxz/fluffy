@@ -20,6 +20,7 @@ function GridForm({openModal, slipperData, resetSignal, category}) {
             ref={ref}
             className={`grid-item ${inView ? 'visible' : ''}`} // Add 'visible' class when in view
         >
+            {/* TODO: revision - remove redundant comments */}
             <img className={"grid-img"} onClick={() => openModal(slipperData, selectorValue)} src={slipperData.img} alt={slipperData.name} loading="lazy"/>
             {/* <select className="selector" value={selectorValue}
                         onChange={(e) => setSelectorValue(Number(e.target.value))}>

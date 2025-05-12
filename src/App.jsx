@@ -1,10 +1,15 @@
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// TODO: revision - use the same style for naming your files.
+//  e.g components/carousel.jsx is lowercase, but components/Catalog.jsx is PascalCase
 import Catalog from "./components/Catalog.jsx";
 import Carousel from "./components/carousel";
 import Modal from "./components/modal";
 import { motion } from "framer-motion";
+// TODO: revision - connect prettier to your IDE + project configuration
+// TODO: revision - move css files to separate folder, (now everything is in src folder)
+// TODO: revision - remove duplicated imports
 import { useState } from "react";
 import {useEffect} from "react";
 
@@ -84,6 +89,7 @@ function App() {
                                selectorValue={modalSelectorValue}/>
                     </motion.div>}
             </div>
+            {/* TODO: revision - move footer to separate component */}
             <div className="footer">
                 <footer>
                     <p className="f-p">Fluffy Steps ©2024-{yearNow}</p>

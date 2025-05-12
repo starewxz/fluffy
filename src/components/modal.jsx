@@ -6,6 +6,7 @@ import { db, collection, addDoc } from "../firebase.js";
 import {useEffect} from "react";
 import Order from "../models/order.js";
 
+// TODO: revision - divide this component into smaller reusable components e.g li tag might be a separate component
 function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     const [selectedSize, setSelectedSize] = useState(null);
     const [nameInp, setNameInp] = useState("");
@@ -18,6 +19,12 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     const [departments, setDepartments] = useState([]);
 
     const fetchDepartments = async (cityRef) => {
+        // TODO: revision - use axios for API calls instead of fetch
+        // TODO: revision - make separate helper class for API calls.
+        // 1. create new folder with such classes e.g services
+        // 2. create new file e.g nova-poshta-service.js
+        // 3. move this function there (only pass body from this function)
+        // Use chat GPT to help you with this task
         try {
             const response = await fetch("https://fluffy-server-pi.vercel.app/api/novaposhta", {
                 method: "POST",
@@ -92,6 +99,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
             await addDoc(collection(db, "orders"), data);
             console.log("Data recorded:", data);
         } catch (error) {
+            // TODO: revision - use some alert component to show error to the user
             console.error("Error recording data:", error);
         }
     };
@@ -118,6 +126,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
             setAlert({ type: "success", message: "Дякуємо за замовлення!", visible: true });
             console.log("Alert Triggered: Thank you for your purchase!");
 
+            // TODO: are you sure you want to close modal after 1.5 sec?
             setTimeout(() => {
                 closeModal();
             }, 1500);
@@ -221,6 +230,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
                                     <>
                                         <option value="" disabled>Оберіть відділення</option>
                                         {departments.map((dept, idx) => (
+                                            // TODO: revision - Do not use Array index in keys
                                             <option key={idx} value={dept.Description}>
                                                 {dept.Description}
                                             </option>
@@ -243,6 +253,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     );
 }
 
+// Don't use ukrainian language in comments (use english instead)
 // Додаємо валідацію пропсів
 Modal.propTypes = {
     closeModal: PropTypes.func.isRequired,  // closeModal має бути функцією

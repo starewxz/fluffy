@@ -3,6 +3,7 @@
 function Carousel() {
     return (
         <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
+            {/* TODO: revision - move carousel-item into separate component and reuse it */}
             <div className="carousel-inner">
                 <div className="carousel-item active">
                     <img src={`${import.meta.env.BASE_URL}img/dog-img.JPG`} className="d-block w-100" alt="Dog Slippers"/>
