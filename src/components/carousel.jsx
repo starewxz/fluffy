@@ -1,5 +1,5 @@
 
-
+{/* TODO: revision - move carousel-item into separate component and reuse it */}
 function Carousel() {
     return (
         <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">

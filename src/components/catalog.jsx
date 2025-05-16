@@ -1,5 +1,5 @@
 
-import '../Catalog.css';
+import '../../styles/catalog.css';
 import dataSlippers from '../data-slippers.js';
 import PropTypes from "prop-types";
 import {motion} from "framer-motion";

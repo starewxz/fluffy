@@ -37,6 +37,7 @@
     /*box-shadow: 0 0 10px rgba(139, 128, 109, 0.6);*/
     border: 2px solid #c1b6a2;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
+    background-color: #f8f9fa; /* Very light gray behind in case of loading lag */
 }
 /* When the image is in view, this class will be added */
 .grid-item.visible {

@@ -1,12 +1,11 @@
-import "./App.css"
+import "../styles/app.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Catalog from "./components/Catalog.jsx";
+import Catalog from "./components/catalog.jsx";
 import Carousel from "./components/carousel";
 import Modal from "./components/modal";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import {useEffect} from "react";
+import { useState, useEffect } from "react";
 
 
 function App() {
@@ -84,6 +83,7 @@ function App() {
                                selectorValue={modalSelectorValue}/>
                     </motion.div>}
             </div>
+            {/* TODO: revision - move footer to separate component */}
             <div className="footer">
                 <footer>
                     <p className="f-p">Fluffy Steps ©2024-{yearNow}</p>

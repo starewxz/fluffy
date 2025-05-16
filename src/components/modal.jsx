@@ -1,11 +1,13 @@
-import "../modal.css"
+import "../../styles/modal.css"
 import PropTypes from "prop-types";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Alert from "../components/alert.jsx";
 import { db, collection, addDoc } from "../firebase.js";
-import {useEffect} from "react";
 import Order from "../models/order.js";
+import {novaPoshtaRequest} from "../services/nova-poshta-service.js";
 
+
+// TODO: revision - divide this component into smaller reusable components e.g li tag might be a separate component
 function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     const [selectedSize, setSelectedSize] = useState(null);
     const [nameInp, setNameInp] = useState("");
@@ -17,18 +19,16 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     const [isCityFocused, setIsCityFocused] = useState(false);
     const [departments, setDepartments] = useState([]);
 
+    // TODO: revision - use axios for API calls instead of fetch
+    // TODO: revision - make separate helper class for API calls.
+    // 1. create new folder with such classes e.g services
+    // 2. create new file e.g nova-poshta-service.js
+    // 3. move this function there (only pass body from this function)
+    // Use chat GPT to help you with this task
+
     const fetchDepartments = async (cityRef) => {
         try {
-            const response = await fetch("https://fluffy-server-pi.vercel.app/api/novaposhta", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    methodName: "getWarehouses",
-                    query: { CityRef: cityRef },
-                }),
-            });
-
-            const result = await response.json();
+            const result = await novaPoshtaRequest("getWarehouses", { CityRef: cityRef });
             console.log("Departments Response:", result);
 
             if (result.success && result.data) {
@@ -41,26 +41,15 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
         }
     };
 
-
-
     const fetchCities = async (inputCity) => {
         if (!inputCity || inputCity.length < 1) return;
 
         try {
-            const response = await fetch("https://fluffy-server-pi.vercel.app/api/novaposhta", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    methodName: "getCities",
-                    query: { FindByString: inputCity }
-                }),
-            });
-
-            const result = await response.json();
-            console.log('City Fetch Response:', result); // Log the result from the Nova Poshta API
+            const result = await novaPoshtaRequest("getCities", { FindByString: inputCity });
+            console.log("City Fetch Response:", result);
 
             if (result.success && result.data) {
-                setCityOptions(result.data); // Store the list of cities
+                setCityOptions(result.data);
             } else {
                 console.warn("Failed to get cities", result);
             }
@@ -68,6 +57,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
             console.error("Error fetching cities:", err);
         }
     };
+
 
 
     useEffect(() => {
@@ -93,6 +83,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
             console.log("Data recorded:", data);
         } catch (error) {
             console.error("Error recording data:", error);
+            setAlert( { type: "warning", message: "Виникла помилка при записі данних, будь ласка спробуйте знову", visible: true});
         }
     };
 
@@ -243,10 +234,10 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     );
 }
 
-// Додаємо валідацію пропсів
+// Add props validation
 Modal.propTypes = {
-    closeModal: PropTypes.func.isRequired,  // closeModal має бути функцією
-    selectedSlipper: PropTypes.shape({      // selectedSlipper - це об'єкт з певними властивостями
+    closeModal: PropTypes.func.isRequired,  // closeModal is a function
+    selectedSlipper: PropTypes.shape({      // selectedSlipper - is an object
         name: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
         cost: PropTypes.number.isRequired,
