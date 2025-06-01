@@ -8,7 +8,6 @@
       "destination": "/img/$1"
     }
   ],
-
   "headers": [
     {
       "source": "/img/(.*.(jpg|JPG|png|PNG|gif|webp))",
