@@ -1,49 +1,62 @@
+import { useRef } from 'react';
+import { Carousel } from 'antd';
+import dataSlippers from "../data-slippers.js";
+import "../../styles/carousel.css";
 
-{/* TODO: revision - move carousel-item into separate component and reuse it */}
-function Carousel() {
+const MyCarousel = () => {
+    const carouselRef = useRef();
+
+    const CustomPrevArrow = () => (
+        <button
+            onClick={() => carouselRef.current.prev()}
+            className="custom-prev-arrow"
+        >
+            <img
+                alt="previous"
+                src={`${import.meta.env.BASE_URL}img/right-arrow.png`}
+                style={{ transform: 'scaleX(-1)' }}
+            />
+        </button>
+    );
+
+    const CustomNextArrow = () => (
+        <button
+            onClick={() => carouselRef.current.next()}
+            className="custom-next-arrow"
+        >
+            <img
+                alt="next"
+                src={`${import.meta.env.BASE_URL}img/right-arrow.png`}
+            />
+        </button>
+    );
+
     return (
-        <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
-            <div className="carousel-inner">
-                <div className="carousel-item active">
-                    <img src={`${import.meta.env.BASE_URL}img/dog-img.JPG`} className="d-block w-100"
-                         alt="Dog Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/unicorn-img.JPG`} className="d-block w-100"
-                         alt="Unicorn Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/cow-img.JPG`} className="d-block w-100"
-                         alt="Cow Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/giraffe-img.JPG`} className="d-block w-100"
-                         alt="Giraffe Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/goat-img.JPG`} className="d-block w-100"
-                         alt="Goat Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/bear-img.JPG`} className="d-block w-100"
-                         alt="Bear Slippers"/>
-                </div>
-            </div>
-            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                    data-bs-slide="prev">
-                <span className="carousel-prev-icon" aria-hidden="true"><img
-                    src={`${import.meta.env.BASE_URL}img/right-arrow.png`} style={{transform: 'scaleX(-1)'}}/></span>
-                <span className="visually-hidden">Previous</span>
-            </button>
-            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                    data-bs-slide="next">
-                <span className="carousel-next-icon" aria-hidden="true"><img
-                    src={`${import.meta.env.BASE_URL}img/right-arrow.png`}/></span>
-                <span className="visually-hidden">Next</span>
-            </button>
+        <div className="antd-carousel-wrapper">
+            <div className="carousel-edge carousel-edge-left"></div>
+            <div className="carousel-edge carousel-edge-right"></div>
+
+            <Carousel
+                ref={carouselRef}
+                autoplay
+                dots={false}
+                arrows={true}
+                prevArrow={<CustomPrevArrow />}
+                nextArrow={<CustomNextArrow />}
+                className="custom-antd-carousel"
+            >
+                {dataSlippers.map((slipper) => (
+                    <div key={slipper.id} className="carousel-slide">
+                        <img
+                            src={slipper.img}
+                            alt={slipper.name}
+                            className="carousel-image"
+                        />
+                    </div>
+                ))}
+            </Carousel>
         </div>
-    )
-}
+    );
+};
 
-
-export default Carousel;
+export default MyCarousel;

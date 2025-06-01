@@ -1,10 +1,10 @@
-import { StrictMode } from 'react'
+import { ConfigProvider } from "antd";
 import { createRoot } from 'react-dom/client'
 import '../styles/index.css'
-import App from './app.jsx'
+import Router from "./router.jsx";
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <ConfigProvider>
+      <Router />
+  </ConfigProvider>
 )

@@ -1,7 +1,7 @@
 import "../../styles/modal.css"
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
-import Alert from "../components/alert.jsx";
+import Alert from "../../tags/alert.jsx";
 import { db, collection, addDoc } from "../firebase.js";
 import Order from "../models/order.js";
 import {novaPoshtaRequest} from "../services/nova-poshta-service.js";
