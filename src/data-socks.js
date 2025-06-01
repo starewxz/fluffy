@@ -62,19 +62,19 @@ const dataSocks = [
     {
         id: '11',
         name: "flamingo",
-        img: `${import.meta.env.BASE_URL}public/img/flamingo-socks.jpeg`,
+        img: `${import.meta.env.BASE_URL}img/flamingo-socks.jpeg`,
         cost: 100,
     },
     {
         id: '12',
         name: "ice cream",
-        img: `${import.meta.env.BASE_URL}public/img/iceCream-socks.jpeg`,
+        img: `${import.meta.env.BASE_URL}img/iceCream-socks.jpeg`,
         cost: 100,
     },
     {
         id: '13',
         name: "toucan",
-        img: `${import.meta.env.BASE_URL}public/img/toucan-socks.jpeg`,
+        img: `${import.meta.env.BASE_URL}img/toucan-socks.jpeg`,
         cost: 100,
     },
 ]
