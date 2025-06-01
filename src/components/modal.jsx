@@ -1,4 +1,4 @@
-import "../../styles/modal.css"
+import "/styles/modal.css"
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
 import Alert from "../../tags/alert.jsx";
