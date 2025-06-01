@@ -1,7 +1,8 @@
+
 const Footer = () => {
     const time = new Date();
     const yearNow = time.getFullYear();
-    
+
     return (
         <div className="footer">
             <footer>

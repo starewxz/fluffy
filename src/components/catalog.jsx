@@ -28,7 +28,7 @@ function Catalog({ openModal, resetSignal}) {
                 transition={{ duration: 1, ease: "easeOut" }}
             >
                 <button className={`${category === 'slippers' ? "slippers-active" : ""}`} onClick={() => handleCategoryChange('slippers')}><img className="slippers-png" src={`${import.meta.env.BASE_URL}img/slippers.png`} alt='slippers button'/></button>
-                <p><img src={`${import.meta.env.BASE_URL}img/line.png`} alt='border line'/></p>
+                <p><img src={`${import.meta.env.BASE_URL}public/img/line.png`} alt='border line'/></p>
                 <button className={`${category === 'socks' ? "socks-active" : ""}`} onClick={() => handleCategoryChange('socks')}><img className="sock-png" src={`${import.meta.env.BASE_URL}img/sock.png`} alt="socks button"/></button>
             </motion.div>
 

@@ -13,7 +13,7 @@ const MyCarousel = () => {
         >
             <img
                 alt="previous"
-                src={`${import.meta.env.BASE_URL}img/right-arrow.png`}
+                src={`${import.meta.env.BASE_URL}public/img/right-arrow.png`}
                 style={{ transform: 'scaleX(-1)' }}
             />
         </button>
@@ -26,7 +26,7 @@ const MyCarousel = () => {
         >
             <img
                 alt="next"
-                src={`${import.meta.env.BASE_URL}img/right-arrow.png`}
+                src={`${import.meta.env.BASE_URL}public/img/right-arrow.png`}
             />
         </button>
     );
