@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "../styles/alert.css"
+import "../../styles/alert.css"
 import PropTypes from "prop-types"
 
 function Alert({ type, message, visible, onClose }) {

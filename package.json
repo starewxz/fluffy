@@ -5,24 +5,21 @@
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "cross-env GITHUB_PAGES=true vite build && gh-pages -d dist",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "antd": "^5.25.4",
     "axios": "^1.9.0",
-    "bootstrap": "^5.3.6",
+    "bootstrap": "^5.3.3",
     "firebase": "^11.2.0",
     "framer-motion": "^12.0.6",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-intersection-observer": "^9.15.1",
-    "react-router-dom": "^7.6.1",
-    "styled-components": "^6.1.18"
+    "react-intersection-observer": "^9.15.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.26.3",
@@ -30,7 +27,6 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
-    "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
@@ -42,5 +38,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/starewxz/fluffy.git"
-  }
+  },
+  "homepage": "https://starewxz.github.io/fluffy"
 }
