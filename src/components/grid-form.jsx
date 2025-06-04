@@ -17,17 +17,10 @@ function GridForm({openModal, slipperData, resetSignal, category}) {
     return (
         <div
             ref={ref}
-            className={`grid-item ${inView ? 'visible' : ''}`} // Add 'visible' class when in view
+            className={`grid-item ${inView ? 'visible' : ''}`}
         >
             <img className={"grid-img"} onClick={() => openModal(slipperData, selectorValue)} src={slipperData.img} alt={slipperData.name} loading="lazy"/>
-            {/* <select className="selector" value={selectorValue}
-                        onChange={(e) => setSelectorValue(Number(e.target.value))}>
-                    {[...Array(10)].map((_, index) => (
-                        <option key={index + 1} value={index + 1}>{index + 1}</option>
-                    ))}
-                </select> */}
             <p className="cost-p">{slipperData.cost}</p>
-            {/* <button className="grid-btn" onClick={() => openModal(slipperData, selectorValue)}>Замовити</button> */}
         </div>
     );
 }

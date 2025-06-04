@@ -1,13 +1,15 @@
 import "../../styles/modal.css"
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
-import Alert from "../components/alert.jsx";
+import Alert from "../../tags/alert.jsx";
 import { db, collection, addDoc } from "../firebase.js";
 import Order from "../models/order.js";
-import {novaPoshtaRequest} from "../services/nova-poshta-service.js";
+import { getCities, getDepartments } from "../services/nova-poshta-service.js";
+import CitySuggestionItem from "../../tags/citySuggestion.jsx";
+import DepartmentSelect from "../../tags/departamentSelection.jsx";
+import SizeSelector from "../../tags/sizeSelector.jsx";
 
 
-// TODO: revision - divide this component into smaller reusable components e.g li tag might be a separate component
 function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     const [selectedSize, setSelectedSize] = useState(null);
     const [nameInp, setNameInp] = useState("");
@@ -19,45 +21,23 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     const [isCityFocused, setIsCityFocused] = useState(false);
     const [departments, setDepartments] = useState([]);
 
-    // TODO: revision - use axios for API calls instead of fetch
-    // TODO: revision - make separate helper class for API calls.
-    // 1. create new folder with such classes e.g services
-    // 2. create new file e.g nova-poshta-service.js
-    // 3. move this function there (only pass body from this function)
-    // Use chat GPT to help you with this task
+    const fetchCities = async (inputCity) => {
+        try {
+            const cities = await getCities(inputCity);
+            setCityOptions(cities);
+        } catch (err) {
+            console.error("Error in fetchCities:", err);
+        }
+    };
 
     const fetchDepartments = async (cityRef) => {
         try {
-            const result = await novaPoshtaRequest("getWarehouses", { CityRef: cityRef });
-            console.log("Departments Response:", result);
-
-            if (result.success && result.data) {
-                setDepartments(result.data);
-            } else {
-                console.warn("Failed to get departments", result);
-            }
+            const departments = await getDepartments(cityRef);
+            setDepartments(departments);
         } catch (err) {
-            console.error("Error fetching departments:", err);
+            console.error("Error in fetchDepartments:", err);
         }
     };
-
-    const fetchCities = async (inputCity) => {
-        if (!inputCity || inputCity.length < 1) return;
-
-        try {
-            const result = await novaPoshtaRequest("getCities", { FindByString: inputCity });
-            console.log("City Fetch Response:", result);
-
-            if (result.success && result.data) {
-                setCityOptions(result.data);
-            } else {
-                console.warn("Failed to get cities", result);
-            }
-        } catch (err) {
-            console.error("Error fetching cities:", err);
-        }
-    };
-
 
 
     useEffect(() => {
@@ -94,7 +74,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
             setAlert({ type: "warning", message: "Будь ласка заповніть усі поля та оберіть відділення!", visible: true });
         } else {
             const order = new Order( {
-                slipper: selectedSlipper, // entire object
+                slipper: selectedSlipper,
                 size: selectedSize,
                 city: cityInp,
                 np: selectedDepartment,
@@ -103,7 +83,6 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
                 quantity: selectorValue
             });
 
-            // Save data to Firebase before showing alerts
             await recordToFirebase(order.toFirebaseObject());
 
             setAlert({ type: "success", message: "Дякуємо за замовлення!", visible: true });
@@ -135,17 +114,8 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
                 <div className="modal-content">
                     <img className="modal-img" src={selectedSlipper.img} alt={selectedSlipper.name}/>
                     <p className="m-p">{selectedSlipper?.name || "Unknown Slipper"}</p>
-                    <div className="size-container">
-                        {[35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45].map((size) => (
-                            <button
-                                key={size}
-                                className={`size-btn ${selectedSize === size ? 'selected' : ''}`}
-                                onClick={() => setSelectedSize(size)}
-                            >
-                                {size}
-                            </button>
-                        ))}
-                    </div>
+                    <SizeSelector selectedSize={selectedSize} onSelect={setSelectedSize} />
+
 
                     <input
                         className="top-inp"
@@ -186,41 +156,28 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
                         {isCityFocused && cityOptions.length > 0 && (
                             <ul className="city-suggestions">
                                 {cityOptions.map((city, index) => (
-                                    <li
+                                    <CitySuggestionItem
                                         key={index}
-                                        className="city-suggestion-item"
-                                        onClick={() => {
-                                            setCityInp(city.Description);  // Set the city name in input field
-                                            setCityOptions([]);  // Clear the suggestion list
+                                        description={city.Description}
+                                        onSelect={() => {
+                                            setCityInp(city.Description);
+                                            setCityOptions([]);
                                             setIsCityFocused(false);
                                             fetchDepartments(city.Ref);
                                         }}
-                                    >
-                                        {city.Description}
-                                    </li>
+                                    />
                                 ))}
                             </ul>
                         )}
                     </div>
                     <div className="departament-container">
                         {(departments.length > 0 || cityInp !== "") && (
-                            <select className="np" value={selectedDepartment}
-                                    onChange={(e) => setSelectedDepartment(e.target.value)}>
-                                {departments.length === 0 ? (
-                                    <option>Завантаження відділень...</option>
-                                ) : (
-                                    <>
-                                        <option value="" disabled>Оберіть відділення</option>
-                                        {departments.map((dept, idx) => (
-                                            <option key={idx} value={dept.Description}>
-                                                {dept.Description}
-                                            </option>
-                                        ))}
-                                    </>
-                                )}
-                            </select>
+                            <DepartmentSelect
+                                departments={departments}
+                                selectedDepartment={selectedDepartment}
+                                onChange={setSelectedDepartment}
+                            />
                         )}
-
                     </div>
 
                     <p className="m-p">Вартість: {selectedSlipper.cost * selectorValue}грн</p>
@@ -234,10 +191,9 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     );
 }
 
-// Add props validation
 Modal.propTypes = {
-    closeModal: PropTypes.func.isRequired,  // closeModal is a function
-    selectedSlipper: PropTypes.shape({      // selectedSlipper - is an object
+    closeModal: PropTypes.func.isRequired,
+    selectedSlipper: PropTypes.shape({
         name: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
         cost: PropTypes.number.isRequired,

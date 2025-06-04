@@ -1,4 +1,3 @@
-
 import '../../styles/catalog.css';
 import dataSlippers from '../data-slippers.js';
 import PropTypes from "prop-types";
@@ -44,10 +43,6 @@ function Catalog({ openModal, resetSignal}) {
 Catalog.propTypes = {
     openModal: PropTypes.func.isRequired,
     resetSignal: PropTypes.func.isRequired,
-    slipperData: PropTypes.shape({      // selectedSlipper - це об'єкт з певними властивостями
-        name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-    }).isRequired,
 };
 
 export default Catalog;

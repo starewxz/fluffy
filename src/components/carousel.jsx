@@ -1,44 +1,31 @@
-
-{/* TODO: revision - move carousel-item into separate component and reuse it */}
+import dataSlippers from '../data-slippers.js';
 function Carousel() {
     return (
         <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
-                <div className="carousel-item active">
-                    <img src={`${import.meta.env.BASE_URL}img/dog-img.JPG`} className="d-block w-100"
-                         alt="Dog Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/unicorn-img.JPG`} className="d-block w-100"
-                         alt="Unicorn Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/cow-img.JPG`} className="d-block w-100"
-                         alt="Cow Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/giraffe-img.JPG`} className="d-block w-100"
-                         alt="Giraffe Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/goat-img.JPG`} className="d-block w-100"
-                         alt="Goat Slippers"/>
-                </div>
-                <div className="carousel-item">
-                    <img src={`${import.meta.env.BASE_URL}img/bear-img.JPG`} className="d-block w-100"
-                         alt="Bear Slippers"/>
-                </div>
+                {dataSlippers.map((item, index) => (
+                    <div
+                        className={`carousel-item${index === 0 ? ' active' : ''}`}
+                        key={item.id}
+                    >
+                        <img
+                            src={item.img}
+                            className="d-block w-100"
+                            alt={item.name}
+                        />
+                    </div>
+                ))}
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                     data-bs-slide="prev">
-                <span className="carousel-prev-icon" aria-hidden="true"><img
-                    src={`${import.meta.env.BASE_URL}img/right-arrow.png`} style={{transform: 'scaleX(-1)'}}/></span>
+                <span className="carousel-prev-icon" aria-hidden="true">
+                    <img alt={"previous"} src={`${import.meta.env.BASE_URL}img/right-arrow.png`} style={{transform: 'scaleX(-1)'}}/></span>
                 <span className="visually-hidden">Previous</span>
             </button>
             <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
                     data-bs-slide="next">
-                <span className="carousel-next-icon" aria-hidden="true"><img
-                    src={`${import.meta.env.BASE_URL}img/right-arrow.png`}/></span>
+                <span className="carousel-next-icon" aria-hidden="true">
+                    <img alt={"next"} src={`${import.meta.env.BASE_URL}img/right-arrow.png`}/></span>
                 <span className="visually-hidden">Next</span>
             </button>
         </div>
