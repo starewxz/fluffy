@@ -62,6 +62,7 @@
     transition: all 0.3s ease;
     box-sizing: border-box;
     color: #827762;
+    background-color: #f9f9f9;
     font-family: "Nunito", serif;
     font-weight: 500;
     font-style: normal;
@@ -124,6 +125,7 @@ input[type="tel"]:focus {
     transition: all 0.3s ease;
     box-sizing: border-box;
     color: #827762;
+    background-color: #f9f9f9;
     margin-left: 30px;
     font-family: "Nunito", serif;
     font-weight: 500;
@@ -184,6 +186,7 @@ input[type="tel"]:focus {
     transition: all 0.3s ease;
     box-sizing: border-box;
     color: #827762;
+    background-color: #f9f9f9;
     margin-left: 30px;
     appearance: none;
     font-family: "Nunito", serif;
