@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import '../styles/index.css'
+import './styles/index.css'
 import { ConfigProvider } from "antd";
 import Router from "./router.jsx";
 

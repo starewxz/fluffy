@@ -1,16 +1,19 @@
-import "../../styles/modal.css"
+import "../styles/modal.css"
 import PropTypes from "prop-types";
-import {useState, useEffect} from "react";
-import Alert from "../../tags/alert.jsx";
+import {useState, useEffect, useRef} from "react";
+import Alert from "../tags/alert.jsx";
 import { db, collection, addDoc } from "../firebase.js";
 import Order from "../models/order.js";
 import { getCities, getDepartments } from "../services/nova-poshta-service.js";
-import CitySuggestionItem from "../../tags/citySuggestion.jsx";
-import DepartmentSelect from "../../tags/departamentSelection.jsx";
-import SizeSelector from "../../tags/sizeSelector.jsx";
+import CitySuggestionItem from "../tags/citySuggestion.jsx";
+import DepartmentSelect from "../tags/departamentSelection.jsx";
+import SizeSelector from "../tags/sizeSelector.jsx";
 
 
 function Modal( {closeModal, selectedSlipper, selectorValue} ) {
+    const nameRef = useRef(null);
+    const numberRef = useRef(null);
+    const cityRef = useRef(null);
     const [selectedSize, setSelectedSize] = useState(null);
     const [nameInp, setNameInp] = useState("");
     const [numberInp, setNumberInp] = useState("");
@@ -20,6 +23,12 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     const [cityOptions, setCityOptions] = useState([]);
     const [isCityFocused, setIsCityFocused] = useState(false);
     const [departments, setDepartments] = useState([]);
+    const [invalidFields, setInvalidFields] = useState({
+        name: false,
+        number: false,
+        city: false,
+        departament: false,
+    });
 
     const fetchCities = async (inputCity) => {
         try {
@@ -68,30 +77,63 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
     };
 
     const handleSubmit = async () => {
+        let hasError = false;
+
+        const updatedInvalidFields = {
+            name: false,
+            number: false,
+            city: false,
+            departament: false,
+        };
+
         if (!selectedSize) {
             setAlert({ type: "warning", message: "Будь ласка оберіть розмір!", visible: true });
-        } else if (!selectedDepartment || nameInp.trim() === "" || numberInp.trim() === "" || cityInp.trim() === "") {
-            setAlert({ type: "warning", message: "Будь ласка заповніть усі поля та оберіть відділення!", visible: true });
-        } else {
-            const order = new Order( {
-                slipper: selectedSlipper,
-                size: selectedSize,
-                city: cityInp,
-                np: selectedDepartment,
-                name: nameInp.trim(),
-                phone: numberInp.trim(),
-                quantity: selectorValue
-            });
-
-            await recordToFirebase(order.toFirebaseObject());
-
-            setAlert({ type: "success", message: "Дякуємо за замовлення!", visible: true });
-            console.log("Alert Triggered: Thank you for your purchase!");
-
-            setTimeout(() => {
-                closeModal();
-            }, 1500);
+            return;
         }
+
+        if (nameInp.trim() === "") {
+            updatedInvalidFields.name = true;
+            nameRef.current?.focus();
+            setAlert({ type: "warning", message: "Будь ласка введіть імʼя!", visible: true });
+            hasError = true;
+        } else if (numberInp.trim() === "") {
+            updatedInvalidFields.number = true;
+            numberRef.current?.focus();
+            setAlert({ type: "warning", message: "Будь ласка введіть номер телефону!", visible: true });
+            hasError = true;
+        } else if (cityInp.trim() === "") {
+            updatedInvalidFields.city = true;
+            cityRef.current?.focus();
+            setAlert({ type: "warning", message: "Будь ласка введіть місто!", visible: true });
+            hasError = true;
+        } else if (!selectedDepartment) {
+            setAlert({ type: "warning", message: "Будь ласка оберіть відділення!", visible: true });
+            hasError = true;
+            updatedInvalidFields.departament = true;
+        }
+
+        setInvalidFields(updatedInvalidFields);
+
+        if (hasError) return;
+
+        const order = new Order( {
+            slipper: selectedSlipper,
+            size: selectedSize,
+            city: cityInp,
+            np: selectedDepartment,
+            name: nameInp.trim(),
+            phone: numberInp.trim(),
+            quantity: selectorValue
+        });
+
+        await recordToFirebase(order.toFirebaseObject());
+
+        setAlert({ type: "success", message: "Дякуємо за замовлення!", visible: true });
+        console.info("Alert Triggered: Thank you for your purchase!");
+
+        setTimeout(() => {
+            closeModal();
+        }, 1500);
     };
 
 
@@ -118,34 +160,44 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
 
 
                     <input
-                        className="top-inp"
+                        ref={nameRef}
+                        className={`top-inp ${invalidFields.name ? "invalid-input" : ""}`}
                         value={nameInp}
                         type="text"
                         placeholder="Прізвище Імʼя"
-                        onChange={(e) => setNameInp(e.target.value)}
-                        onFocus={() => {
-                            window.scrollBy(0, -150);
+                        onChange={(e) => {
+                            setNameInp(e.target.value);
+                            setInvalidFields((prev) => ({ ...prev, name: false }));
                         }}
+                        onFocus={() => window.scrollBy(0, -150)}
                     />
+
                     <input
+                        ref={numberRef}
+                        className={`top-inp ${invalidFields.number ? "invalid-input" : ""}`}
                         type="tel"
                         value={numberInp}
                         placeholder="Номер телефону"
-                        onChange={(e) => setNumberInp(e.target.value)}
-                        onFocus={() => {
-                            window.scrollBy(0, -150);
+                        onChange={(e) => {
+                            setNumberInp(e.target.value);
+                            setInvalidFields((prev) => ({ ...prev, number: false }));
                         }}
+                        onFocus={() => window.scrollBy(0, -150)}
                     />
 
                     <p className="city-p">* Введіть місто та виберіть відділення Нової Пошти</p>
 
                     <div className="city-container">
                         <input
-                            className="city-inp"
+                            ref={cityRef}
+                            className={`city-inp ${invalidFields.city ? "invalid-input" : ""}`}
                             type="text"
                             value={cityInp}
                             placeholder="Введіть міcто"
-                            onChange={(e) => setCityInp(e.target.value)}
+                            onChange={(e) => {
+                                setCityInp(e.target.value);
+                                setInvalidFields((prev) => ({ ...prev, city: false }));
+                            }}
                             onFocus={() => {
                                 setIsCityFocused(true);
                                 window.scrollBy(0, -150);
@@ -164,6 +216,7 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
                                             setCityOptions([]);
                                             setIsCityFocused(false);
                                             fetchDepartments(city.Ref);
+                                            setSelectedDepartment("");
                                         }}
                                     />
                                 ))}
@@ -173,9 +226,14 @@ function Modal( {closeModal, selectedSlipper, selectorValue} ) {
                     <div className="departament-container">
                         {(departments.length > 0 || cityInp !== "") && (
                             <DepartmentSelect
+                                className={`np ${invalidFields.departament ? "invalid-input" : ""}`}
                                 departments={departments}
                                 selectedDepartment={selectedDepartment}
-                                onChange={setSelectedDepartment}
+                                onChange={ (value) => {
+                                    setSelectedDepartment(value);
+                                    setInvalidFields((prev) => ({ ...prev, departament: false }));
+                                }
+                                }
                             />
                         )}
                     </div>

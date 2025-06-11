@@ -3,7 +3,7 @@ import Carousel from "../components/carousel.jsx";
 import {motion} from "framer-motion";
 import Catalog from "../components/catalog.jsx";
 import Modal from "../components/modal.jsx";
-import "/styles/app.css"
+import "/src/styles/app.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Footer from "../components/footer.jsx";

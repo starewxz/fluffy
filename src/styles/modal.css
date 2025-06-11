@@ -8,15 +8,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(220, 220, 220, 0.15));
-    backdrop-filter: blur(12px) saturate(1.3) brightness(1.05);
-    -webkit-backdrop-filter: blur(12px) saturate(1.3) brightness(1.05);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px) saturate(1.4) brightness(1.05);
+    -webkit-backdrop-filter: blur(15px) saturate(1.4) brightness(1.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
     box-shadow: inset 0 0 80px rgba(255, 255, 255, 0.05);
     animation: cloudFadeIn 0.5s ease forwards;
 }
+
+.invalid-input {
+    border: 2px solid #D94343 !important;
+    color: #D94343 !important;
+}
+.invalid-input::placeholder {
+    color: #D94343 !important;
+}
+
 
 @keyframes cloudFadeIn {
     0% {
@@ -54,7 +62,6 @@
     transition: all 0.3s ease;
     box-sizing: border-box;
     color: #827762;
-    background-color: #f9f9f9;
     font-family: "Nunito", serif;
     font-weight: 500;
     font-style: normal;
@@ -72,7 +79,6 @@
     font-weight: 700;
     font-style: normal;
     color: #c1b6a2;
-    background-color: white;
 }
 
 input[type="tel"] {
@@ -118,7 +124,6 @@ input[type="tel"]:focus {
     transition: all 0.3s ease;
     box-sizing: border-box;
     color: #827762;
-    background-color: #f9f9f9;
     margin-left: 30px;
     font-family: "Nunito", serif;
     font-weight: 500;
@@ -179,7 +184,6 @@ input[type="tel"]:focus {
     transition: all 0.3s ease;
     box-sizing: border-box;
     color: #827762;
-    background-color: #f9f9f9;
     margin-left: 30px;
     appearance: none;
     font-family: "Nunito", serif;
@@ -207,14 +211,14 @@ input[type="tel"]:focus {
 
 .modal-content {
     align-items: center;
-    position: fixed;
+    position: fixed !important;
     bottom: 0;
-    background: white;
+    background: #faf7f4;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 10px !important;
     text-align: center;
     height: 80vh;
-    box-shadow: 0 10px 40px rgba(139, 128, 109, 0.35),
+    box-shadow: 0 12px 42px rgba(186, 168, 135, 0.55),
     0 0 60px rgba(193, 182, 162, 0.25);
 
 }
@@ -279,29 +283,29 @@ input[type="tel"]:focus {
 /* Media Query for comp Devices */
 @media (min-width: 1025px) {
     .modal-content {
-        width: 55%;
-        height: 90vh;
+        width: 55% !important;
+        height: 90vh !important;
     }
 }
 /* Media Query for Tablet Devices */
 @media (min-width: 601px) and (max-width: 1024px) {
     .modal-content {
-        width: 55%;
-        height: 90vh;
+        width: 55% !important;
+        height: 90vh !important;
     }
 }
 /* 📱 Media Query for Mobile Devices */
 @media (max-width: 600px) {
     .modal-content {
-        width: 85%;
-        height: 85vh;
+        width: 85% !important;
+        height: 85vh !important;
     }
 }
 
 @supports (-webkit-touch-callout: none) {
     /* Safari/iOS-only CSS here */
     .modal-content {
-        height: 90vh;
+        height: 90vh !important;
     }
 }
 
