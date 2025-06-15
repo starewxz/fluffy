@@ -19,8 +19,29 @@ function GridForm({openModal, slipperData, resetSignal, category}) {
             ref={ref}
             className={`grid-item ${inView ? 'visible' : ''}`}
         >
-            <img className={"grid-img"} onClick={() => openModal(slipperData, selectorValue)} src={slipperData.img} alt={slipperData.name} loading="lazy"/>
+            <div className="image-wrapper">
+                <img
+                    className={`grid-img ${!slipperData.available ? "disabled" : ""}`}
+                    onClick={() => { if (slipperData.available) openModal(slipperData, selectorValue)}}
+                    src={slipperData.img}
+                    alt={slipperData.name}
+                    loading="lazy"/>
+                {!slipperData.available && (
+                    <div className="unavailable-overlay">
+                        <div className="cross-line"></div>
+                        <div className="cross-line reverse"></div>
+                    </div>
+                )}
+            </div>
             <p className="cost-p">{slipperData.cost}</p>
+            <p className={`grid-p ${!slipperData.available ? "disabled" : ""}`} onClick={() => { if (slipperData.available) openModal(slipperData, selectorValue)}}>- {slipperData.name}</p>
+            <p
+                className={`availability-text ${
+                    slipperData.available ? "available" : "unavailable"
+                }`}
+            >
+                {slipperData.available ? " є в наявності" : " немає в наявності"}
+            </p>
         </div>
     );
 }
@@ -33,6 +54,7 @@ GridForm.propTypes = {
         name: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
         cost: PropTypes.number.isRequired,
+        available: PropTypes.bool.isRequired,
     }).isRequired,
 }
 

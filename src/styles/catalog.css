@@ -9,10 +9,9 @@
     border-radius: 10px;
     margin: 15px;
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
-    background-image: url("https://www.transparenttextures.com/patterns/corrugation.png")
+    background-image: url("https://www.transparenttextures.com/patterns/corrugation.png");
 }
 
-/* Grid item styles */
 .grid-item {
     display: flex;
     align-items: center;
@@ -26,8 +25,11 @@
     transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition */
     background-image: url("https://www.transparenttextures.com/patterns/corrugation.png")
 }
+.grid-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
 
-/* Image inside grid item */
 .grid-item img {
     width: 100%;
     height: auto;
@@ -38,6 +40,12 @@
     border: 2px solid #c1b6a2;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     background-color: #f8f9fa; /* Very light gray behind in case of loading lag */
+    cursor: pointer;
+}
+.grid-img.disabled {
+    cursor: no-drop;
+    pointer-events: auto;
+    filter: grayscale(100%) blur(1px) brightness(80%);
 }
 /* When the image is in view, this class will be added */
 .grid-item.visible {
@@ -81,7 +89,24 @@
     letter-spacing: 0.5px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-
+.grid-p {
+    margin: 0;
+    cursor: pointer;
+    align-self: flex-start;
+    font-family: "Nunito", serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #a08c72;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.grid-p.disabled {
+    cursor: no-drop;
+}
 
 .cost-p::before {
     content: "₴";
@@ -94,6 +119,72 @@
     .cost-p {
         margin-right: 75px;
     }
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.unavailable-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(150, 150, 150, 0.6);
+    pointer-events: none;
+    border-radius: 10px;
+}
+
+.cross-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #bd0000;
+    transform: rotate(45deg);
+}
+
+.cross-line.reverse {
+    transform: rotate(-45deg);
+}
+
+.availability-text {
+    margin-top: 4px;
+    font-size: 16px;
+    font-weight: 800;
+    align-self: flex-start;
+    font-family: "Nunito", serif;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.availability-text::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background-color: currentColor;
+}
+@media (max-width: 600px) {
+    .availability-text {
+        font-size: 13px;
+    }
+    .grid-p {
+        font-size: 15px;
+    }
+}
+
+.available {
+    color: #007000;
+}
+
+.unavailable {
+    color: #bd0000;
 }
 
 /* Button inside grid item */
